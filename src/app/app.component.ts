@@ -61,9 +61,22 @@ export class AppComponent implements OnInit {
   }
 
   openDialogUserUpdate(id: string): void {
-    this.dialog.open(DilogUserEditComponent, {
-      data: this.dataSource.filter((data) => data.id === id)
+    const dialogRef = this.dialog.open(DilogUserEditComponent, {
+      data: this.receiveData.filter((data) => data.id === id)
     });
+
+    dialogRef.afterClosed().subscribe(
+      (resp) => {
+        const idx = this.receiveData.findIndex((item) => item.id === resp.id);
+        this.receiveData[idx] = resp;
+      },
+      (err) => {
+        console.error('Observer got an error: ' + err);
+      },
+      () => {
+        this.dataSource = new MatTableDataSource<Element>(this.receiveData);
+      }
+    );
   }
 
   togglePassword(field) {

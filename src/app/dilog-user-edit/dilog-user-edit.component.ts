@@ -12,7 +12,7 @@ export class DilogUserEditComponent implements OnInit {
   updateUserForm: FormGroup;
   isPasswordVisible = false;
 
-  constructor(@Inject(MAT_DIALOG_DATA) private data: any,
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any,
               private db: AngularFirestore,
               private fb: FormBuilder,
               private dialogRef: MatDialogRef<DilogUserEditComponent>) {
@@ -32,19 +32,13 @@ export class DilogUserEditComponent implements OnInit {
   }
 
   updateUserData() {
-    this.db.collection('users').doc(this.data[0].id)
-      .update({
-        ip: this.updateUserForm.controls.ip.value,
-        name: this.updateUserForm.controls.name.value,
-        password: this.updateUserForm.controls.password.value,
-      }).then(() => {
+    this.db.collection('users').doc(this.data[0].id).update(this.updateUserForm.value)
+      .then(() => {
         console.log('Document successfully updated! ');
-      }).catch((error) => {
+        this.dialogRef.close({...this.updateUserForm.value, id: this.data[0].id});
+      })
+      .catch((error) => {
         console.error('Error updating document: ', error);
       });
-  }
-
-  onCloseDialog() {
-    this.dialogRef.close();
   }
 }
