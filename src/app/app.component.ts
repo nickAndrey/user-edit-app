@@ -44,19 +44,19 @@ export class AppComponent implements OnInit {
 
   addUser() {
     this.db.collection('users').add(this.createUserForm.value)
-      .then((docRef) =>
-        this.receiveData.push({
-          ...this.createUserForm.value,
-          id: docRef.id
-        }))
-      .then(() => this.dataSource = new MatTableDataSource<Element>(this.receiveData))
+      .then((docRef) => {
+        this.receiveData.push({...this.createUserForm.value, id: docRef.id});
+        this.dataSource = new MatTableDataSource<Element>(this.receiveData);
+      })
       .catch((error) => console.error('Error adding document: ', error));
   }
 
   deleteUser(id: string) {
     this.db.collection('users').doc(id).delete()
-      .then(() => this.receiveData = this.receiveData.filter(item => item.id !== id))
-      .then(() => this.dataSource = new MatTableDataSource<Element>(this.receiveData))
+      .then(() => {
+        this.receiveData = this.receiveData.filter(item => item.id !== id);
+        this.dataSource = new MatTableDataSource<Element>(this.receiveData);
+      })
       .catch((error) => console.error('Error removing document: ', error));
   }
 
