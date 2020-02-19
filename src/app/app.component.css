@@ -1,20 +1,9 @@
-table, form {
-  width: 50%;
-  margin: auto;
-}
-
-form {
-  margin-top: 15px;
-}
-
-form mat-form-field {
+.drawer-container {
+  height: 100%;
   width: 100%;
-  margin-bottom: 10px;
 }
 
-.spinner {
-  display: flex;
-  margin: auto;
-  justify-content: center;
-  width: 50%;
+.drawer-sidenav {
+  padding: 0 20px;
+  width: 10%;
 }

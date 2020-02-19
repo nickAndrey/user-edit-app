@@ -1,0 +1,81 @@
+<table mat-table *ngIf="receiveData.length" [dataSource]="dataSource" class="mat-elevation-z8">
+
+  <!-- Position Column -->
+  <ng-container matColumnDef="id">
+    <th mat-header-cell *matHeaderCellDef> No.</th>
+    <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+  </ng-container>
+
+  <!-- Name Column -->
+  <ng-container matColumnDef="name">
+    <th mat-header-cell *matHeaderCellDef> Name</th>
+    <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+  </ng-container>
+
+  <!-- id Column -->
+  <ng-container matColumnDef="ip">
+    <th mat-header-cell *matHeaderCellDef> IP Address</th>
+    <td mat-cell *matCellDef="let element"> {{element.ip}} </td>
+  </ng-container>
+
+  <!-- password Column -->
+  <ng-container matColumnDef="password">
+    <th mat-header-cell *matHeaderCellDef> Password</th>
+    <td mat-cell *matCellDef="let element"> {{element.password}} </td>
+  </ng-container>
+
+  <!-- btn Column -->
+  <ng-container matColumnDef="delete">
+    <th mat-header-cell *matHeaderCellDef> Delete user</th>
+    <td mat-cell *matCellDef="let element">
+      <button mat-icon-button aria-label="remove user data" (click)="deleteUser(element.id)">
+        <mat-icon>delete</mat-icon>
+      </button>
+      <button mat-icon-button aria-label="remove user data" (click)="openDialogUserUpdate(element.id)">
+        <mat-icon>edit</mat-icon>
+      </button>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+
+<div *ngIf="!receiveData.length" class="spinner">
+  <mat-spinner [diameter]="20"></mat-spinner>
+</div>
+
+<form [formGroup]="createUserForm">
+  <mat-form-field appearance="outline">
+    <mat-label>User Name</mat-label>
+    <input matInput formControlName="name" required title="user name" placeholder="user name">
+    <mat-icon matSuffix>face</mat-icon>
+    <mat-hint>min 5 characters</mat-hint>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>IP Address</mat-label>
+    <input matInput formControlName="ip" required title="connected with ..." placeholder="fill in connection ip">
+    <mat-icon matSuffix>account_tree</mat-icon>
+    <mat-hint>ip: 10.0.8.74</mat-hint>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>User Password</mat-label>
+    <input matInput type="password" required formControlName="password" title="user password"
+           placeholder="user password" #pwd>
+    <button mat-icon-button aria-label="show password" matSuffix (click)="togglePassword(pwd)">
+      <mat-icon matSuffix *ngIf="!isPasswordVisible">visibility</mat-icon>
+      <mat-icon matSuffix *ngIf="isPasswordVisible">visibility_off</mat-icon>
+    </button>
+    <mat-hint>min 1 capital character</mat-hint>
+  </mat-form-field>
+
+  <button (click)="addUser()"
+          color="primary"
+          mat-raised-button
+          [disabled]="!createUserForm.controls['name'].value"
+  >
+    Add user
+  </button>
+</form>

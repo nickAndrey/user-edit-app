@@ -4,20 +4,27 @@ import {NgModule} from '@angular/core';
 // for firebase
 import {AngularFireModule} from '@angular/fire';
 import {AngularFireDatabaseModule} from '@angular/fire/database';
+import {AngularFirestore} from '@angular/fire/firestore';
 import {environment} from '../environments/environment';
 
-import {AppComponent} from './app.component';
-import {AngularFirestore} from '@angular/fire/firestore';
+// for Forms
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+
+// for Material
+import {MaterialModule} from './material/material.module';
+import {DilogUserEditComponent} from './dilog-user-edit/dilog-user-edit.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
-import {MaterialModule} from './material/material.module';
-import { DilogUserEditComponent } from './dilog-user-edit/dilog-user-edit.component';
+import {AppComponent} from './app.component';
+import {UserEditComponent} from './user-edit/user-edit.component';
+
+import {RoutingModule} from './routing/routing.module';
 
 @NgModule({
   declarations: [
     AppComponent,
-    DilogUserEditComponent
+    DilogUserEditComponent,
+    UserEditComponent
   ],
   imports: [
     BrowserModule,
@@ -26,7 +33,8 @@ import { DilogUserEditComponent } from './dilog-user-edit/dilog-user-edit.compon
     FormsModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
-    MaterialModule
+    MaterialModule,
+    RoutingModule
   ],
   providers: [AngularFirestore],
   bootstrap: [AppComponent],

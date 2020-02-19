@@ -1,0 +1,20 @@
+table, form {
+  width: 50%;
+  margin: auto;
+}
+
+form {
+  margin-top: 15px;
+}
+
+form mat-form-field {
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.spinner {
+  display: flex;
+  margin: auto;
+  justify-content: center;
+  width: 50%;
+}

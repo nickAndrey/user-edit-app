@@ -1,7 +1,7 @@
 import {Component, OnInit, Inject} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
-import {AngularFirestore} from '@angular/fire/firestore';
 import {FormGroup, FormBuilder, Validators} from '@angular/forms';
+import {UserService} from '../services/user-service/user.service';
 
 @Component({
   selector: 'app-dilog-user-edit',
@@ -13,9 +13,9 @@ export class DilogUserEditComponent implements OnInit {
   isPasswordVisible = false;
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any,
-              private db: AngularFirestore,
               private fb: FormBuilder,
-              private dialogRef: MatDialogRef<DilogUserEditComponent>) {
+              private dialogRef: MatDialogRef<DilogUserEditComponent>,
+              private userService: UserService) {
   }
 
   ngOnInit(): void {
@@ -32,7 +32,7 @@ export class DilogUserEditComponent implements OnInit {
   }
 
   updateUserData() {
-    this.db.collection('users').doc(this.data[0].id).update(this.updateUserForm.value)
+    this.userService.updateUserData(this.data[0].id, this.updateUserForm.value)
       .then(() => {
         console.log('Document successfully updated! ');
         this.dialogRef.close({...this.updateUserForm.value, id: this.data[0].id});
