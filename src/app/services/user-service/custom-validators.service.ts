@@ -1,12 +1,11 @@
 import { Injectable } from '@angular/core';
-import { FormControl } from '@angular/forms';
-import { UserService } from './user.service';
+import { AbstractControl, FormControl, ValidatorFn } from '@angular/forms';
 
 @Injectable({
     providedIn: 'root'
 })
 export class CustomValidatorsService {
-    constructor(private userService: UserService) {}
+    constructor() {}
 
     public validateIP(control: FormControl) {
         const pattern = '(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]?|0)';
@@ -76,5 +75,19 @@ export class CustomValidatorsService {
               };
     }
 
-    public validateName(control: FormControl) {}
+    public validateName(params: any): ValidatorFn {
+        return (control: AbstractControl) => {
+            const isNameExist = [...params].filter(
+                (item) => item.name === control.value
+            );
+            return !isNameExist.length || !control.value
+                ? null
+                : {
+                      validatorName: {
+                          valid: false,
+                          msg: `Name: ${control.value} already in use`
+                      }
+                  };
+        };
+    }
 }

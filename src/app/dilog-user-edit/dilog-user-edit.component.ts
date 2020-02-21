@@ -61,7 +61,7 @@ export class DilogUserEditComponent implements OnInit {
                     id: this.data[0].id
                 });
             })
-            .catch(error => {
+            .catch((error) => {
                 console.error('Error updating document: ', error);
             });
     }

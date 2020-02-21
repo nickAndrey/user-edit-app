@@ -3,27 +3,40 @@
     <mat-hint>{{ data[0].name }}</mat-hint>
 </h1>
 <form mat-dialog-content [formGroup]="updateUserForm">
-    <mat-form-field appearance="legacy">
+    <mat-form-field appearance="standard">
         <mat-label>User Name</mat-label>
         <input matInput formControlName="name" required title="user name" placeholder="user name" />
         <mat-icon matSuffix>face</mat-icon>
     </mat-form-field>
 
-    <mat-form-field appearance="legacy">
+    <mat-form-field appearance="standard">
         <mat-label>IP Address</mat-label>
-        <input matInput formControlName="ip" required title="connected with ..." placeholder="fill in connection ip" />
+        <input
+            matInput
+            formControlName="ip"
+            required
+            title="connected with ..."
+            placeholder="fill in connection ip"
+        />
         <mat-icon matSuffix>account_tree</mat-icon>
         <mat-error *ngIf="updateUserForm.get('ip').hasError('validatorIP')">
             {{ updateUserForm.get('ip').errors.validatorIP.msg }}
         </mat-error>
     </mat-form-field>
 
-    <mat-form-field appearance="legacy">
+    <mat-form-field appearance="standard">
         <mat-label>User Password</mat-label>
-        <input matInput type="password" required formControlName="password" title="user password" placeholder="user password" #pwd />
+        <input
+            matInput
+            type="password"
+            required
+            formControlName="password"
+            title="user password"
+            placeholder="user password"
+            #pwd
+        />
         <button mat-icon-button aria-label="show password" matSuffix (click)="togglePassword(pwd)">
-            <mat-icon matSuffix *ngIf="!isPasswordVisible">visibility</mat-icon>
-            <mat-icon matSuffix *ngIf="isPasswordVisible">visibility_off</mat-icon>
+            <mat-icon matSuffix>{{ isPasswordVisible ? 'visibility_off' : 'visibility' }}</mat-icon>
         </button>
         <mat-error *ngIf="updateUserForm.get('password').hasError('validatorPwd')">
             {{ updateUserForm.get('password').errors.validatorPwd.msg }}

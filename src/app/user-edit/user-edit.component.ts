@@ -27,6 +27,7 @@ export class UserEditComponent implements OnInit {
 
     addUserForm() {
         const {
+            validateName,
             validateIP,
             validatePwdUppercase,
             validatePwdLowercase,
@@ -35,7 +36,7 @@ export class UserEditComponent implements OnInit {
             validatePwdMinLength
         } = this.customValidators;
         this.createUserForm = this.fb.group({
-            name: [''],
+            name: ['', validateName(this.dataSource)],
             ip: ['', validateIP],
             password: [
                 '',
@@ -51,8 +52,8 @@ export class UserEditComponent implements OnInit {
     }
 
     getUsers() {
-        this.userService.getUserData().subscribe(querySnapshot => {
-            querySnapshot.forEach(queryDocumentSnapshot => {
+        this.userService.getUserData().subscribe((querySnapshot) => {
+            querySnapshot.forEach((queryDocumentSnapshot) => {
                 this.receiveData.push({
                     ...queryDocumentSnapshot.data(),
                     id: queryDocumentSnapshot.id
@@ -64,38 +65,38 @@ export class UserEditComponent implements OnInit {
     addUser() {
         this.userService
             .addUser(this.createUserForm.value)
-            .then(docRef => {
+            .then((docRef) => {
                 this.receiveData.push({
                     ...this.createUserForm.value,
                     id: docRef.id
                 });
                 this.dataSource = new MatTableDataSource<Element>(this.receiveData);
             })
-            .catch(error => console.error('Error adding document: ', error));
+            .catch((error) => console.error('Error adding document: ', error));
     }
 
     deleteUser(id: string) {
         this.userService
             .removeUserData(id)
             .then(() => {
-                this.receiveData = this.receiveData.filter(item => item.id !== id);
+                this.receiveData = this.receiveData.filter((item) => item.id !== id);
                 this.dataSource = new MatTableDataSource<Element>(this.receiveData);
             })
-            .catch(error => console.error('Error removing document: ', error));
+            .catch((error) => console.error('Error removing document: ', error));
     }
 
     openDialogUserUpdate(id: string): void {
         const dialogRef = this.dialog.open(DilogUserEditComponent, {
-            data: this.receiveData.filter(data => data.id === id)
+            data: this.receiveData.filter((data) => data.id === id)
         });
 
         dialogRef.afterClosed().subscribe(
-            resp => {
-                const idx = resp ? this.receiveData.findIndex(item => item.id === resp.id) : null;
+            (resp) => {
+                const idx = resp ? this.receiveData.findIndex((item) => item.id === resp.id) : null;
                 this.receiveData[idx] = resp;
                 this.dataSource = new MatTableDataSource<Element>(this.receiveData);
             },
-            err => console.error('Observer got an error: ' + err)
+            (err) => console.error('Observer got an error: ' + err)
         );
     }
 
