@@ -59,7 +59,7 @@ export class CustomValidatorsService {
             : {
                   validatorPwd: {
                       valid: false,
-                      msg: 'The string must contain at least one special char acter'
+                      msg: `The string must contain at least one special character, for example !@#%&`
                   }
               };
     }
@@ -70,16 +70,14 @@ export class CustomValidatorsService {
             : {
                   validatorPwd: {
                       valid: false,
-                      msg: 'The string must be eight characters or longer'
+                      msg: 'The string must be 8 characters or longer'
                   }
               };
     }
 
     public validateName(params: any): ValidatorFn {
         return (control: AbstractControl) => {
-            const isNameExist = [...params].filter(
-                (item) => item.name === control.value
-            );
+            const isNameExist = [...params].filter((item) => item.name === control.value);
             return !isNameExist.length || !control.value
                 ? null
                 : {

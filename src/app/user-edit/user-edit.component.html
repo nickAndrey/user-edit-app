@@ -84,8 +84,16 @@
             placeholder="user password"
             #pwd
         />
-        <button mat-icon-button aria-label="show password" matSuffix (click)="togglePassword(pwd)">
-            <mat-icon matSuffix>{{ isPasswordVisible ? 'visibility_off' : 'visibility' }}</mat-icon>
+        <button
+            mat-icon-button
+            aria-label="show password"
+            matSuffix
+            (click)="togglePassword(pwd)"
+            [disabled]="!pwd.value"
+        >
+            <mat-icon matSuffix>
+                {{ isPasswordVisible ? 'visibility_off' : 'visibility' }}
+            </mat-icon>
         </button>
         <mat-error *ngIf="createUserForm.get('password').hasError('validatorPwd')">
             {{ createUserForm.get('password').errors.validatorPwd.msg }}

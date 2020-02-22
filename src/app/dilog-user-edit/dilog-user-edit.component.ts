@@ -23,6 +23,7 @@ export class DilogUserEditComponent implements OnInit {
 
     ngOnInit(): void {
         const {
+            validateName,
             validateIP,
             validatePwdUppercase,
             validatePwdLowercase,
@@ -32,7 +33,7 @@ export class DilogUserEditComponent implements OnInit {
         } = this.customValidators;
 
         this.updateUserForm = this.fb.group({
-            name: [this.data[0].name, Validators.required],
+            name: [this.data[0].name, validateName(this.data)],
             ip: [this.data[0].ip, validateIP],
             password: [
                 this.data[0].password,
