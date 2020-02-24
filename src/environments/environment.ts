@@ -4,16 +4,26 @@
 
 import firebaseConfig from './firebase-config';
 
+const {
+    API_KEY,
+    AUTH_DOMAIN,
+    DATABASE_URL,
+    PROJECT_ID,
+    STORAGE_BUCKET,
+    MESSAGING_SENDER_ID,
+    APP_ID
+} = firebaseConfig;
+
 export const environment = {
     production: false,
     firebaseConfig: {
-        apiKey: firebaseConfig.API_KEY,
-        authDomain: firebaseConfig.AUTH_DOMAIN,
-        databaseURL: firebaseConfig.DATABASE_URL,
-        projectId: firebaseConfig.PROJECT_ID,
-        storageBucket: firebaseConfig.STORAGE_BUCKET,
-        messagingSenderId: firebaseConfig.MESSAGING_SENDER_ID,
-        appId: firebaseConfig.APP_ID
+        apiKey: API_KEY,
+        authDomain: AUTH_DOMAIN,
+        databaseURL: DATABASE_URL,
+        projectId: PROJECT_ID,
+        storageBucket: STORAGE_BUCKET,
+        messagingSenderId: MESSAGING_SENDER_ID,
+        appId: APP_ID
     }
 };
 
